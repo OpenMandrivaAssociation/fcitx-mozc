@@ -34,6 +34,8 @@ BuildRequires: pkgconfig(zinnia)
 BuildRequires: pkgconfig(QtCore)
 BuildRequires: pkgconfig(QtGui)
 BuildRequires: pkgconfig(xt)
+BuildRequires: pkgconfig(xi)
+BuildRequires: pkgconfig(xcursor)
 Requires: fcitx
 
 %track

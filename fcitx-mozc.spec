@@ -36,6 +36,7 @@ BuildRequires: pkgconfig(QtGui)
 BuildRequires: pkgconfig(xt)
 BuildRequires: pkgconfig(xi)
 BuildRequires: pkgconfig(xcursor)
+BuildRequires: pkgconfig(gtk+-2.0)
 Requires: fcitx
 
 %track
