@@ -33,6 +33,7 @@ BuildRequires: pkgconfig(fcitx)
 BuildRequires: pkgconfig(zinnia)
 BuildRequires: pkgconfig(QtCore)
 BuildRequires: pkgconfig(QtGui)
+BuildRequires: pkgconfig(xt)
 Requires: fcitx
 
 %track
