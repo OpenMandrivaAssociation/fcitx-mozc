@@ -5,7 +5,7 @@ Name: fcitx-mozc
 Version: 1.10.1390.102.2
 %if "%{beta}" == ""
 %if "%{scmrev}" == ""
-Release: 1
+Release: 2
 Source0: http://fcitx.googlecode.com/files/fcitx-mozc-%version.tar.xz
 %else
 Release: 0.%{scmrev}.1
