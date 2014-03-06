@@ -2,10 +2,10 @@
 %define scmrev %{nil}
 
 Name: fcitx-mozc
-Version: 1.10.1390.102.2
+Version: 1.13.1651.102.1
 %if "%{beta}" == ""
 %if "%{scmrev}" == ""
-Release: 1
+Release: 5
 Source0: http://fcitx.googlecode.com/files/fcitx-mozc-%version.tar.xz
 %else
 Release: 0.%{scmrev}.1
@@ -36,6 +36,7 @@ BuildRequires: pkgconfig(QtGui)
 BuildRequires: pkgconfig(xt)
 BuildRequires: pkgconfig(xi)
 BuildRequires: pkgconfig(xcursor)
+BuildRequires: pkgconfig(gtk+-2.0)
 Requires: fcitx
 
 %track

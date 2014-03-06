@@ -2,10 +2,10 @@
 %define scmrev %{nil}
 
 Name: fcitx-mozc
-Version: 1.10.1390.102.2
+Version: 1.13.1651.102.1
 %if "%{beta}" == ""
 %if "%{scmrev}" == ""
-Release: 5
+Release: 1
 Source0: http://fcitx.googlecode.com/files/fcitx-mozc-%version.tar.xz
 %else
 Release: 0.%{scmrev}.1
