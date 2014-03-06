@@ -2,7 +2,7 @@
 %define scmrev %{nil}
 
 Name: fcitx-mozc
-Version: 1.10.1390.102.2
+Version: 1.13.1651.102.1
 %if "%{beta}" == ""
 %if "%{scmrev}" == ""
 Release: 2
