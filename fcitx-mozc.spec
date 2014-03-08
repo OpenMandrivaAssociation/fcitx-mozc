@@ -22,7 +22,6 @@ Source0: %{name}-%{scmrev}.tar.xz
 %endif
 Source1: http://downloads.sourceforge.net/project/pnsft-aur/mozc/ken_all-201305.zip
 Source2: http://downloads.sourceforge.net/project/pnsft-aur/mozc/jigyosyo-201305.zip
-Source3: http://protobuf.googlecode.com/files/protobuf-2.5.0.tar.bz2
 Source10: %name.rpmlintrc
 Summary: Japanese input support for fcitx
 URL: http://fcitx.googlecode.com/
@@ -30,6 +29,7 @@ License: GPLv2
 Group: System/Internationalization
 BuildRequires: cmake
 BuildRequires: gyp
+BuildRequires: pkgconfig(protobuf)
 BuildRequires: pkgconfig(fcitx)
 BuildRequires: pkgconfig(zinnia)
 BuildRequires: pkgconfig(QtCore)
@@ -52,12 +52,11 @@ Japanese input support for fcitx
 
 %prep
 %if "%{scmrev}" == ""
-%setup -q -n %{name}-%{version}%{beta} -a 1 -a 2 -a 3
+%setup -q -n %{name}-%{version}%{beta} -a 1 -a 2
 %else
 %setup -q -n %{name}
 %endif
 python dictionary/gen_zip_code_seed.py --zip_code=KEN_ALL.CSV --jigyosyo=JIGYOSYO.CSV >>dictionary/dictionary09.txt
-cp -rf protobuf-2.5.0 protobuf/files
 ./build_mozc.py gyp --gypdir=%{_bindir} --channel_dev=0
 
 %build
