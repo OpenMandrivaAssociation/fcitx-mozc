@@ -29,6 +29,7 @@ URL: http://fcitx.googlecode.com/
 License: GPLv2
 Group: System/Internationalization
 BuildRequires: cmake
+BuildRequires: gyp
 BuildRequires: pkgconfig(fcitx)
 BuildRequires: pkgconfig(zinnia)
 BuildRequires: pkgconfig(QtCore)
@@ -57,7 +58,7 @@ Japanese input support for fcitx
 %endif
 python dictionary/gen_zip_code_seed.py --zip_code=KEN_ALL.CSV --jigyosyo=JIGYOSYO.CSV >>dictionary/dictionary09.txt
 cp -rf protobuf-2.5.0 protobuf/files
-./build_mozc.py gyp --channel_dev=0
+./build_mozc.py gyp --gypdir=%{_bindir} --channel_dev=0
 
 %build
 J="`getconf _NPROCESSORS_ONLN`"; [ -z "$J" ] && J=4
