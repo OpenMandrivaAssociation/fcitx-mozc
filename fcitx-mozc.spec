@@ -61,7 +61,7 @@ python dictionary/gen_zip_code_seed.py --zip_code=KEN_ALL.CSV --jigyosyo=JIGYOSY
 
 %build
 J="`getconf _NPROCESSORS_ONLN`"; [ -z "$J" ] && J=4
-./build_mozc.py build_tools -c Release --jobs=$J
+GYP_DEFINES="use_libprotobuf=1" ./build_mozc.py build_tools -c Release --jobs=$J
 ./build_mozc.py build -c Release server/server.gyp:mozc_server gui/gui.gyp:mozc_tool unix/fcitx/fcitx.gyp:fcitx-mozc --jobs=$J
 # Workaround for mozc_tool and mozc_server getting the same build-id
 %__strip --strip-unneeded out_*/*/mozc_server
