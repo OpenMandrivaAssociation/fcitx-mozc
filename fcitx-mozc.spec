@@ -5,7 +5,7 @@ Name: fcitx-mozc
 Version: 1.13.1651.102.1
 %if "%{beta}" == ""
 %if "%{scmrev}" == ""
-Release: 2
+Release: 1
 Source0: http://fcitx.googlecode.com/files/fcitx-mozc-%version.tar.xz
 %else
 Release: 0.%{scmrev}.1
@@ -31,6 +31,7 @@ BuildRequires: cmake
 BuildRequires: gyp
 BuildRequires: pkgconfig(protobuf)
 BuildRequires: pkgconfig(fcitx)
+BuildRequires: pkgconfig(ibus-1.0)
 BuildRequires: pkgconfig(zinnia)
 BuildRequires: pkgconfig(QtCore)
 BuildRequires: pkgconfig(QtGui)
@@ -57,11 +58,11 @@ Japanese input support for fcitx
 %setup -q -n %{name}
 %endif
 python dictionary/gen_zip_code_seed.py --zip_code=KEN_ALL.CSV --jigyosyo=JIGYOSYO.CSV >>dictionary/dictionary09.txt
-./build_mozc.py gyp --gypdir=%{_bindir} --channel_dev=0
 
 %build
 J="`getconf _NPROCESSORS_ONLN`"; [ -z "$J" ] && J=4
-GYP_DEFINES="use_libprotobuf=1" ./build_mozc.py build_tools -c Release --jobs=$J
+GYP_DEFINES="use_libprotobuf=1" ./build_mozc.py gyp --gypdir=%{_bindir} --channel_dev=0
+./build_mozc.py build_tools -c Release --jobs=$J
 ./build_mozc.py build -c Release server/server.gyp:mozc_server gui/gui.gyp:mozc_tool unix/fcitx/fcitx.gyp:fcitx-mozc --jobs=$J
 # Workaround for mozc_tool and mozc_server getting the same build-id
 %__strip --strip-unneeded out_*/*/mozc_server
