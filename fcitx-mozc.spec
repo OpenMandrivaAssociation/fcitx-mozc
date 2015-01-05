@@ -5,8 +5,8 @@ Name: fcitx-mozc
 Version: 1.13.1651.102.1
 %if "%{beta}" == ""
 %if "%{scmrev}" == ""
-Release: 4
-Source0: http://fcitx.googlecode.com/files/fcitx-mozc-%version.tar.xz
+Release: 5
+Source0: http://download.fcitx-im.org/fcitx-mozc/fcitx-mozc-%version.tar.xz
 %else
 Release: 0.%{scmrev}.1
 Source0: %{name}-%{scmrev}.tar.xz
@@ -24,7 +24,7 @@ Source1: http://downloads.sourceforge.net/project/pnsft-aur/mozc/ken_all-201305.
 Source2: http://downloads.sourceforge.net/project/pnsft-aur/mozc/jigyosyo-201305.zip
 Source10: %name.rpmlintrc
 Summary: Japanese input support for fcitx
-URL: http://fcitx.googlecode.com/
+URL: http://www.fcitx-im.org/
 License: GPLv2
 Group: System/Internationalization
 BuildRequires: cmake
@@ -39,11 +39,12 @@ BuildRequires: pkgconfig(xt)
 BuildRequires: pkgconfig(xi)
 BuildRequires: pkgconfig(xcursor)
 BuildRequires: pkgconfig(gtk+-2.0)
+BuildRequires: python2
 Requires: fcitx
 
 %track
 prog %{name} = {
-	url = http://code.google.com/p/fcitx/downloads/list
+	url = http://download.fcitx-im.org/fcitx-mozc
 	regex = "%name-(__VER__)\.tar\.xz"
 	version = %{version}
 }
@@ -57,13 +58,15 @@ Japanese input support for fcitx
 %else
 %setup -q -n %{name}
 %endif
-python dictionary/gen_zip_code_seed.py --zip_code=KEN_ALL.CSV --jigyosyo=JIGYOSYO.CSV >>dictionary/dictionary09.txt
+find . -name *.gyp -exec sed -i 's/'\''python'\''/'\''python2'\''/' {} \;
+find . -name *.gypi -exec sed -i 's/'\''python'\''/'\''python2'\''/' {} \;
+python2 dictionary/gen_zip_code_seed.py --zip_code=KEN_ALL.CSV --jigyosyo=JIGYOSYO.CSV >>dictionary/dictionary09.txt
 
 %build
 J="`getconf _NPROCESSORS_ONLN`"; [ -z "$J" ] && J=4
-GYP_DEFINES="use_libprotobuf=1" ./build_mozc.py gyp --gypdir=%{_bindir} --channel_dev=0
-./build_mozc.py build_tools -c Release --jobs=$J
-./build_mozc.py build -c Release server/server.gyp:mozc_server gui/gui.gyp:mozc_tool unix/fcitx/fcitx.gyp:fcitx-mozc --jobs=$J
+GYP_DEFINES="use_libprotobuf=1" python2 ./build_mozc.py gyp --gypdir=%{_bindir} --channel_dev=0
+python2 ./build_mozc.py build_tools -c Release --jobs=$J
+python2 ./build_mozc.py build -c Release server/server.gyp:mozc_server gui/gui.gyp:mozc_tool unix/fcitx/fcitx.gyp:fcitx-mozc --jobs=$J
 # Workaround for mozc_tool and mozc_server getting the same build-id
 %__strip --strip-unneeded out_*/*/mozc_server
 
