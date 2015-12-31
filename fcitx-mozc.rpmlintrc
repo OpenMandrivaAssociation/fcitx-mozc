@@ -1,2 +1,0 @@
-# Caused by weird build system
-addFilter("E: debuginfo-without-sources")
